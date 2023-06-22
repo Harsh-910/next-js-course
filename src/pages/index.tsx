@@ -2,18 +2,18 @@ import styles from '@/styles/Home.module.css'
 import fs from 'fs/promises';
 import path from 'path';
 
-export default function Home(props:any) {
+export default function Home(props: any) {
 
-  const {product} = props;
+  const { product } = props;
   return (
     <>
-     <p>Product 1</p>
-     <p>Product 2</p>
-     <p>Product 3</p>
+      <p>Product 1</p>
+      <p>Product 2</p>
+      <p>Product 3</p>
 
-     {product.map((data:any)=>(
-      <li key={data.id}>{data.title}</li>
-     ))}
+      {product.map((data: any) => (
+        <li key={data.id}>{data.title}</li>
+      ))}
     </>
   )
 }
@@ -24,11 +24,15 @@ export default function Home(props:any) {
 //   }}
 // }
 
-export async function getStaticProps(){
-  const filePath= path.join(process.cwd(),'Data','dummy-backend.json')
-  const jsonData = await fs.readFile(filePath);
+export async function getStaticProps() {
+  console.log('Re-generate')
+  const filePath = path.join(process.cwd(), 'Data', 'dummy-backend.json')
+  const jsonData:any = await fs.readFile(filePath);
   const data = JSON.parse(jsonData);
-  return{props:{
-    product:data.products
-  }}
+  return {
+    props: {
+      product: data.products
+    },
+    revalidate:10,
+  }
 }
