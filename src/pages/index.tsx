@@ -13,7 +13,7 @@ export default function Home(props: any) {
 
       {product.map((data: any) => (
         <li key={data.id}>
-          <Link href={`${data.id}`}>{data.title}</Link>
+          <Link href={`products/${data.id}`}>{data.title}</Link>
         </li>
       ))}
     </>
