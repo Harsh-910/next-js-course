@@ -3,6 +3,10 @@ import path from "path";
 
 export default function Product(props: any) {
   const { product } = props;
+
+  if (!product) {
+    return <>Loading....</>;
+  }
   return (
     <>
       <h1>{product.title}</h1>
@@ -25,13 +29,20 @@ export async function getStaticProps(context: any) {
   };
 }
 
+// export async function getStaticPaths() {
+//   return {
+//     paths: [
+//       { params: { pid: "p1" } },
+//       { params: { pid: "p2" } },
+//       { params: { pid: "p3" } },
+//     ],
+//     fallback: false,
+//   };
+// }
+
 export async function getStaticPaths() {
   return {
-    paths: [
-      { params: { pid: "p1" } },
-      { params: { pid: "p2" } },
-      { params: { pid: "p3" } },
-    ],
-    fallback: false,
+    paths: [{ params: { pid: "p1" } }],
+    fallback: true, // 'blocking' if not loading 
   };
 }
